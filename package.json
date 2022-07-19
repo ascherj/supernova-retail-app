@@ -11,7 +11,7 @@
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
     "start-dev": "webpack-dev-server --hot --mode development",
-    "start": "nodemon server.js",
+    "start": "nodemon -r dotenv/config server.js",
     "test": "jest --coverage"
   },
   "dependencies": {
@@ -41,6 +41,8 @@
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
+    "dotenv": "^16.0.1",
+    "dotenv-webpack": "^8.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
