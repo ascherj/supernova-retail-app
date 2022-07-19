@@ -1,33 +1,76 @@
 import axios from "axios";
-const url = "http://18.224.200.47";
+const url = process.env.FEC_API_URL;
 
 const getProductList = () => {
-  return axios.get(`${url}/products`);
+  return axios.get(`${url}/products`, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    }
+  });
 };
 
-const getProductInfo = (id = 1) => {
-  return axios.get(`${url}/products/${id}`);
+const getProductInfo = (id = 37315) => {
+  return axios.get(`${url}/products/${id}`, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    }
+  });
 };
 
-const getProductStyles = (id = 1) => {
-  return axios.get(`${url}/products/${id}/styles`);
+const getProductStyles = (id = 37315) => {
+  return axios.get(`${url}/products/${id}/styles`, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    }
+  });
 };
 
-const getRelatedProducts = (id = 1) => {
-  return axios.get(`${url}/products/${id}/related`);
+const getRelatedProducts = (id = 37315) => {
+  return axios.get(`${url}/products/${id}/related`, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    }
+  });
 };
 
-const getQA = (id = 1) => {
-  return axios.get(`${url}/qa/${id}`);
+const getQA = (id = 37315) => {
+  return axios.get(`${url}/qa/questions`, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    },
+    params: {
+      product_id: id,
+      page: 1,
+      count: 5
+    }
+  });
 };
 
-const getReviewMetaData = (id = 1) => {
-  return axios.get(`${url}/reviews/${id}/meta`);
+const getReviewMetaData = (id = 37315) => {
+  return axios.get(`${url}/reviews/meta`, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    },
+    params: {
+      product_id: id
+    }
+  });
 };
 
-const getReviewsOfProduct = (id = 1, sortString = "relevant", count = 20) => {
+const getReviewsOfProduct = (id = 37315, sortString = "relevant", count = 20) => {
   return axios.get(
-    `${url}/reviews/${id}/list?sort=${sortString}:asc&count=${count}}`
+    `${url}/reviews`,
+    {
+      headers: {
+        Authorization: process.env.GITHUB_API_TOKEN
+      },
+      params: {
+        product_id: id,
+        page: 1,
+        count,
+        sort: sortString
+      }
+    }
   );
 };
 
@@ -36,7 +79,7 @@ const reportReview = (reviewId) => {
 };
 
 const postReview = (
-  id = 1,
+  id = 37315,
   rating,
   summary,
   body,
@@ -76,10 +119,15 @@ const getSpecificAnswers = (questionId) => {
 };
 
 const askQuestion = (id, text, name, email) => {
-  return axios.post(`${url}/qa/${id}`, {
+  return axios.post(`${url}/qa/questions`, {
     body: text,
     name: name,
     email: email,
+    product_id: id
+  }, {
+    headers: {
+      Authorization: process.env.GITHUB_API_TOKEN
+    }
   });
 };
 
