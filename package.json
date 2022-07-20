@@ -11,7 +11,7 @@
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
     "start-dev": "webpack-dev-server --hot --mode development",
-    "start": "nodemon -r dotenv/config server.js",
+    "start": "nodemon server.js",
     "test": "jest --coverage"
   },
   "dependencies": {
